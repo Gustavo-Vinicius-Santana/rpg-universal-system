@@ -1,0 +1,1 @@
+// rotas relacionadas as fichas
