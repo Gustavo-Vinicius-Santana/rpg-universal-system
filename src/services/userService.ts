@@ -1,1 +1,0 @@
-// rotas relacionadas ao usuário
