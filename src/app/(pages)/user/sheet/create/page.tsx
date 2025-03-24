@@ -3,7 +3,7 @@ import Button from "@/components/buttons/button";
 
 export default function Page() {
     return (
-        <div className="flex flex-col items-center min-h-screen p-6">
+        <div className="flex flex-col items-center p-6">
             <div className="w-full max-w-3xl bg-gray-900 p-6 rounded-lg shadow-lg">
                 <h1 className="text-2xl font-semibold text-white text-center mb-6">ESCOLHA O SISTEMA</h1>
 
