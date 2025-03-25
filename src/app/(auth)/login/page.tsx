@@ -16,6 +16,11 @@ export default function Page() {
                 <div className="mb-6">
                     <InputPassword label="Senha" placeholder="Digite sua senha" />
                 </div>
+                
+                <Link href="/recovery" className="w-full text-right text-gray-400 hover:text-gray-300">
+                    <p className="mb-4">Esqueceu sua senha?</p>
+                </Link>
+                
 
                 <Link href="/user">
                     <ButtonForm label="Entrar" />
