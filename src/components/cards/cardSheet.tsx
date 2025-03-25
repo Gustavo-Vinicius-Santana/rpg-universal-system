@@ -1,3 +1,4 @@
+import { SlOptionsVertical } from "react-icons/sl";
 
 type Interface = {
     id : number,
@@ -14,7 +15,7 @@ export default function CardSheet({id, nome, classe, nivel, sistema}: Interface)
             {/* Cabeçalho com nome e botão de edição */}
             <div className="flex flex-row justify-between items-center w-full mb-4 border-b border-gray-600 pb-2">
                 <p className="flex-1 text-center text-white text-lg font-semibold">{nome}</p>
-                <p>:</p>
+                <SlOptionsVertical size={20}/>
             </div>
 
             {/* Informações do personagem */}
