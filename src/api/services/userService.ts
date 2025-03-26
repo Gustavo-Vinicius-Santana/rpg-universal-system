@@ -1,6 +1,8 @@
 import { API } from "../api";
 
-export const userGet = async (token: string) => {
+import {  interfaceToken, interfaceEditUser } from "@/interfaces/apiRequest/userInterfaces";
+
+export const userGet = async (token: interfaceToken) => {
     try{
         const response = await fetch(`${API}/user`, {
             method: "GET",
@@ -16,15 +18,15 @@ export const userGet = async (token: string) => {
     }
 }
 
-export const userEdit = async (token: string, editedUser: any) => {
+export const userEdit = async (userEdit: interfaceEditUser) => {
     try{
         const response = await fetch(`${API}/user`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${userEdit.token}`,
             },
-            body: JSON.stringify(editedUser),
+            body: JSON.stringify(userEdit),
         });
         const data = await response.json();
         return data;
@@ -33,7 +35,7 @@ export const userEdit = async (token: string, editedUser: any) => {
     }
 }
 
-export const userDelete = async (token: string) => {
+export const userDelete = async (token: interfaceToken) => {
     try{
         const response = await fetch(`${API}/user`, {
             method: "DELETE",

@@ -5,12 +5,14 @@ import { userGet } from "../services/userService";
 import { userEdit } from '../services/userService';
 import { userDelete } from '../services/userService';
 
+import {  interfaceToken, interfaceEditUser } from "@/interfaces/apiRequest/userInterfaces";
+
 export default function useUser() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string | null>(null);
     const [ data, setData ] = useState<any | null>(null);
 
-    const handleGetUser = async (token: string) => {
+    const handleGetUser = async (token: interfaceToken) => {
         setIsLoading(true);
         setError(null);
         setData(null);
@@ -29,12 +31,12 @@ export default function useUser() {
         }
     };
 
-    const handleEditUser = async (token: string, editedUser: any) => {
+    const handleEditUser = async (editedUser: interfaceEditUser) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await userEdit(token, editedUser); 
+            const response = await userEdit(editedUser); 
             console.log(response);
             if (response) {
                 setData(response); 
@@ -48,7 +50,7 @@ export default function useUser() {
         }
     };
 
-    const handleDeleteUser = async (token: string) => {
+    const handleDeleteUser = async (token: interfaceToken) => {
         setIsLoading(true);
         setError(null);
         setData(null);

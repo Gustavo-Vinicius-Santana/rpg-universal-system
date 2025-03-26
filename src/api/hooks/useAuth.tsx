@@ -1,5 +1,7 @@
 'use client';
 
+import { RegisterInterface, LoginInterface, ResetPasswordInterface, ResetEmailInterface } from "@/interfaces/apiRequest/authIterfaces";
+
 import { useState } from 'react';
 import { login } from "../services/authService";
 import { register } from "../services/authService";
@@ -18,12 +20,12 @@ export default function useAuth() {
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<any | null>(null);
 
-    const handleLogin = async (email: string, password: string) => {
+    const handleLogin = async (loginData: LoginInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await login(email, password); 
+            const response = await login(loginData); 
             console.log(response);
             if (response) {
                 setData(response); 
@@ -37,12 +39,12 @@ export default function useAuth() {
         }
     };
 
-    const handleRegister = async (email: string, password: string, type_acount: string, first_name: string, last_name: string) => {
+    const handleRegister = async (newUser: RegisterInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await register(first_name, last_name, email, password, type_acount); 
+            const response = await register(newUser); 
             console.log(response);
             if (response) {
                 setData(response); 
@@ -56,12 +58,12 @@ export default function useAuth() {
         }
     };
 
-    const handleResetPassword = async (token: string, password: string) => {
+    const handleResetPassword = async (newPassword: ResetPasswordInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await resetPassword(token, password); 
+            const response = await resetPassword(newPassword); 
             console.log(response);
             if (response) {
                 setData(response); 
@@ -75,12 +77,12 @@ export default function useAuth() {
         }
     };
 
-    const handleResetEmail = async (email: string) => {
+    const handleResetEmail = async (newEmail: ResetEmailInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await resetEmail(email); 
+            const response = await resetEmail(newEmail); 
             console.log(response);
             if (response) {
                 setData(response); 

@@ -1,14 +1,16 @@
 import { API } from "../api";
 
-export const createSheet = async (token: string, newSheet: any) => {
+import { sheetCreateInterface, getSheetByUserInterface, getSheetByIdInterface, sheetEditInterface, sheetDeleteInterface  } from "@/interfaces/apiRequest/sheetsInterface";
+
+export const createSheet = async (newSheet: sheetCreateInterface) => {
     try{
         const response = await fetch(`${API}/sheet`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${newSheet.token}`,
             },
-            body: JSON.stringify({newSheet}),
+            body: JSON.stringify(newSheet.newSheet),
         });
         const data = await response.json();
         return data;
@@ -17,7 +19,7 @@ export const createSheet = async (token: string, newSheet: any) => {
     }
 }
 
-export const getSheetByUser = async (token: string) => {
+export const getSheetByUser = async (token: getSheetByUserInterface) => {
     try{
         const response = await fetch(`${API}/user/sheet`, {
             method: "GET",
@@ -33,13 +35,13 @@ export const getSheetByUser = async (token: string) => {
     }
 }
 
-export const getSheetById = async (token:string, id: number) => {
+export const getSheetById = async (getSheetById: getSheetByIdInterface) => {
     try{
-        const response = await fetch(`${API}/user/sheet/${id}`, {
+        const response = await fetch(`${API}/user/sheet/${getSheetById.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${getSheetById.token}`,
             },
         });
         const data = await response.json();
@@ -49,15 +51,15 @@ export const getSheetById = async (token:string, id: number) => {
     }
 }
 
-export const sheetEdit = async (token: string, id: number, editedSheet: any) => {
+export const sheetEdit = async (editedSheet: sheetEditInterface) => {
     try{
         const response = await fetch(`${API}/sheet`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${editedSheet.token}`,
             },
-            body: JSON.stringify(editedSheet),
+            body: JSON.stringify(editedSheet.editedSheet),
         });
         const data = await response.json();
         return data;
@@ -66,13 +68,13 @@ export const sheetEdit = async (token: string, id: number, editedSheet: any) => 
     }
 }
 
-export const sheetDelete = async (token: string, id: number) => {
+export const sheetDelete = async (deletedSheet: sheetDeleteInterface) => {
     try{
-        const response = await fetch(`${API}/sheet/${id}`, {
+        const response = await fetch(`${API}/sheet/${deletedSheet.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${deletedSheet.token}`,
             },
         });
         const data = await response.json();

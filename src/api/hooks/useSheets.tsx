@@ -6,12 +6,14 @@ import { sheetEdit } from '../services/sheetService';
 import { sheetDelete } from '../services/sheetService';
 import { createSheet } from '../services/sheetService';
 
+import { sheetCreateInterface, getSheetByUserInterface, getSheetByIdInterface, sheetEditInterface, sheetDeleteInterface  } from "@/interfaces/apiRequest/sheetsInterface";
+
 export default function useSheets() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string | null>(null);
     const [ data, setData ] = useState<any | null>(null);
 
-    const handleGetSheets = async (token: string) => {
+    const handleGetSheets = async (token: getSheetByUserInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
@@ -30,12 +32,12 @@ export default function useSheets() {
         }
     }
 
-    const handleEditSheet = async (token: string, editedSheet: any) => {
+    const handleEditSheet = async (editedSheet: sheetEditInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await sheetEdit(token, editedSheet.id, editedSheet); 
+            const response = await sheetEdit(editedSheet); 
             console.log(response);
             if (response) {
                 setData(response); 
@@ -49,12 +51,12 @@ export default function useSheets() {
         }
     }
 
-    const handleDeleteSheet = async (token: string, sheetId: number) => {
+    const handleDeleteSheet = async (deletedSheet: sheetDeleteInterface) => {
         setIsLoading(true);
         setError(null);
         setData(null);
         try {
-            const response = await sheetDelete(token, sheetId); 
+            const response = await sheetDelete(deletedSheet); 
             console.log(response);
             if (response) {
                 setData(response); 
