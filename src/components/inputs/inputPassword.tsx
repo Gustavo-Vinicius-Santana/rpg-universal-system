@@ -24,7 +24,7 @@ export default function InputPassword({label, placeholder, name, register, error
                 placeholder={placeholder}
                 {...register(name, { required: true })}
             />
-            {error && <span>Esse campo é obrigatorio</span>}
+            {error && <span className="text-red-500 text-sm">Esse campo é obrigatorio</span>}
         </>
     )
 }
