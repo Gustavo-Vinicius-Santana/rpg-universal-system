@@ -6,6 +6,9 @@ import ButtonForm from "@/components/buttons/buttonForm";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { ResetPasswordInterface } from "@/interfaces/apiRequest/authIterfaces";
+import useAuth from "@/api/hooks/useAuth";
+
 type Inputs = {
     email: string
 }
@@ -13,8 +16,22 @@ type Inputs = {
 export default function Page() {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const { resetPassword } = useAuth();
+
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
         console.log(data)
+
+        const emailToReset: ResetPasswordInterface = {
+            email: data.email
+        }
+
+        const dadosResponse = await resetPassword(emailToReset);
+        if (dadosResponse.error) {
+            console.log('erro no login:', dadosResponse.error);
+        } else{
+            console.log('response da api:', dadosResponse);
+        }
+
     }
 
     return (

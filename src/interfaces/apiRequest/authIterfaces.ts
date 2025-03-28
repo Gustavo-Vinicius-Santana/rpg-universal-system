@@ -12,10 +12,10 @@ export interface LoginInterface {
 }
 
 export interface ResetEmailInterface {
+    token: string;
     newEmail: string;
 }
 
 export interface ResetPasswordInterface {
-    token: string;
-    password: string;
+    email: string;
 }

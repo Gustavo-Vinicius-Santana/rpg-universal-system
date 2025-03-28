@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import InputPassword from "@/components/inputs/inputPassword";
 import InputText from "@/components/inputs/inputText";
@@ -7,21 +9,42 @@ import ButtonForm from "@/components/buttons/buttonForm";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { LoginInterface } from "@/interfaces/apiRequest/authIterfaces";
+
+import useAuth from "@/api/hooks/useAuth";
+import { useRouter } from 'next/navigation';
+
 type Inputs = {
     email: string
     password: string
 }
 
 export default function Page() {
+    const router = useRouter();
+
+    const{ login, isLoading } = useAuth();
+
     const {
     register,
     handleSubmit,
     formState: { errors },
     } = useForm<Inputs>()
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(errors.email)
-        console.log(data)
+    const onSubmit: SubmitHandler<Inputs> = async (dataInputs) => {
+        console.log(dataInputs)
+
+        const userToLogin: LoginInterface = {
+            email: dataInputs.email,
+            password: dataInputs.password
+        }
+
+        const dadosResponse = await login(userToLogin);
+        if (dadosResponse.error){
+            console.log('erro no login:', dadosResponse.error);
+        } else {
+            console.log('response da api:', dadosResponse);
+            router.push("/user")
+        }
     }
 
     return (
@@ -45,6 +68,7 @@ export default function Page() {
                 
 
                 <ButtonForm label="Entrar" />
+                {isLoading && <p>Carregando...</p>}
             </form>
         </div>
     );

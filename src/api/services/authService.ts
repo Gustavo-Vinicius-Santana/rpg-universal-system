@@ -14,7 +14,7 @@ export const login = async (loginData: LoginInterface) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -30,7 +30,7 @@ export const register = async (newUser: RegisterInterface) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -40,13 +40,14 @@ export const resetEmail = async (newEmail: ResetEmailInterface) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${newEmail.token}`,
             },
             body: JSON.stringify(newEmail),
         });
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -56,14 +57,13 @@ export const resetPassword = async (newPassword: ResetPasswordInterface) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${newPassword.token}`,
             },
             body: JSON.stringify(newPassword),
         });
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 

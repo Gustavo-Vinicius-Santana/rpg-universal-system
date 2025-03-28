@@ -3,10 +3,7 @@
 import { RegisterInterface, LoginInterface, ResetPasswordInterface, ResetEmailInterface } from "@/interfaces/apiRequest/authIterfaces";
 
 import { useState } from 'react';
-import { login } from "../services/authService";
-import { register } from "../services/authService";
-import { resetPassword } from "../services/authService";
-import { resetEmail } from "../services/authService";
+import { login, register, resetPassword, resetEmail } from "../services/authService";
 
 type UseLoginResponse = {
     isLoading: boolean;
@@ -17,23 +14,16 @@ type UseLoginResponse = {
 
 export default function useAuth() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [data, setData] = useState<any | null>(null);
 
     const handleLogin = async (loginData: LoginInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await login(loginData); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
-            }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente.');
+                return response;
+            } 
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
@@ -41,18 +31,13 @@ export default function useAuth() {
 
     const handleRegister = async (newUser: RegisterInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await register(newUser); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente.');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
@@ -60,18 +45,13 @@ export default function useAuth() {
 
     const handleResetPassword = async (newPassword: ResetPasswordInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await resetPassword(newPassword); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente.');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
@@ -79,31 +59,22 @@ export default function useAuth() {
 
     const handleResetEmail = async (newEmail: ResetEmailInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await resetEmail(newEmail); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente.');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
     };
 
-    
-    
     return {
         isLoading,
-        error,
-        data,
         login: handleLogin,
-        register: handleRegister,
+        registerUser: handleRegister,
         resetPassword: handleResetPassword,
         resetEmail: handleResetEmail
     };
