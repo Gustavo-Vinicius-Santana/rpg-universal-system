@@ -10,23 +10,44 @@ import { sheetCreateInterface, getSheetByUserInterface, getSheetByIdInterface, s
 
 export default function useSheets() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
-    const [ error, setError ] = useState<string | null>(null);
-    const [ data, setData ] = useState<any | null>(null);
 
     const handleGetSheets = async (token: getSheetByUserInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await getSheetByUser(token); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response;
+            } 
+        } catch (error) {
+            console.log('erro da response do hook', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const handleGetSheet = async (token: getSheetByIdInterface) => {
+        setIsLoading(true);
+        try {
+            const response = await getSheetByUser(token); 
+            if (response) {
+                return response;
+            } 
+        } catch (error) {
+            console.log('erro da response do hook', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const handleCreateSheet = async (newSheet: sheetCreateInterface) => {
+        setIsLoading(true);
+        try {
+            const response = await createSheet(newSheet); 
+            if (response) {
+                return response;
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
@@ -34,18 +55,13 @@ export default function useSheets() {
 
     const handleEditSheet = async (editedSheet: sheetEditInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await sheetEdit(editedSheet); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response;
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
@@ -53,29 +69,24 @@ export default function useSheets() {
 
     const handleDeleteSheet = async (deletedSheet: sheetDeleteInterface) => {
         setIsLoading(true);
-        setError(null);
-        setData(null);
         try {
             const response = await sheetDelete(deletedSheet); 
-            console.log(response);
             if (response) {
-                setData(response); 
-            } else {
-                setError('Falha na autenticação');
+                return response
             }
-        } catch (err) {
-            setError('Erro ao fazer login. Tente novamente');
+        } catch (error) {
+            console.log('erro da response do hook', error);
         } finally {
             setIsLoading(false);
         }
     }
 
     return { 
-        isLoading, 
-        error, 
-        data, 
+        isLoading,
         handleGetSheets,
         handleEditSheet, 
-        handleDeleteSheet 
+        handleDeleteSheet,
+        handleCreateSheet,
+        handleGetSheet
     }
 }

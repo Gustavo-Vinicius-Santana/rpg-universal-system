@@ -10,28 +10,28 @@ export const createSheet = async (newSheet: sheetCreateInterface) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${newSheet.token}`,
             },
-            body: JSON.stringify(newSheet.newSheet),
+            body: JSON.stringify(newSheet.data),
         });
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
 export const getSheetByUser = async (token: getSheetByUserInterface) => {
     try{
-        const response = await fetch(`${API}/user/sheet`, {
+        const response = await fetch(`${API}/user/sheets`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${token.token}`,
             },
         });
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -47,7 +47,7 @@ export const getSheetById = async (getSheetById: getSheetByIdInterface) => {
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -59,12 +59,12 @@ export const sheetEdit = async (editedSheet: sheetEditInterface) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${editedSheet.token}`,
             },
-            body: JSON.stringify(editedSheet.editedSheet),
+            body: JSON.stringify(editedSheet.data),
         });
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
 
@@ -80,6 +80,6 @@ export const sheetDelete = async (deletedSheet: sheetDeleteInterface) => {
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error('erro da response do service', error);
     }
 }
