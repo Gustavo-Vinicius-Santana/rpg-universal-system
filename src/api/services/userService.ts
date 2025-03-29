@@ -14,7 +14,7 @@ export const userGet = async (token: interfaceToken) => {
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error("Error fetching user:", error);
     }
 }
 
@@ -31,7 +31,7 @@ export const userEdit = async (userEdit: interfaceEditUser) => {
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error("Error fetching user:", error);
     }
 }
 
@@ -47,6 +47,6 @@ export const userDelete = async (token: interfaceToken) => {
         const data = await response.json();
         return data;
     }catch (error) {
-        console.error(error);
+        console.error("Error fetching user:", error);
     }
 }
