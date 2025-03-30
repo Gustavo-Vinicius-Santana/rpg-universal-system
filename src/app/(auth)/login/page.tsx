@@ -45,7 +45,7 @@ export default function Page() {
             console.log('erro no login:', dadosResponse.error);
         } else {
             console.log('response da api:', dadosResponse);
-            setToken(dadosResponse.token);
+            await setToken(dadosResponse.token);
             router.push("/user")
         }
     }
