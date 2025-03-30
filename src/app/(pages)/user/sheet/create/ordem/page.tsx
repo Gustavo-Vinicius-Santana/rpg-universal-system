@@ -29,8 +29,8 @@ export default function Page() {
         const newSheet: sheetCreateInterface = { 
             token: tokenState, 
             editedSheet: {
-                model_name: 'gurps', //DADO MOCADO
-                model_id: 3, // DADO MOCADO
+                model_name: 'ordem', //DADO MOCADO
+                model_id: 2, // DADO MOCADO
                 data: {
                     person_name: data.name,
                     person_level: Number(data.level),

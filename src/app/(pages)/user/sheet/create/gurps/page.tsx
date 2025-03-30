@@ -70,6 +70,7 @@ export default function Page() {
                         <ButtonForm label="Salvar" />
                     </div>
                 </div>
+                {isLoading && <p>Loading...</p>}
             </form>
         </div>
     )
