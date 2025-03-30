@@ -3,7 +3,7 @@ export interface interfaceToken {
 }
 
 export interface interfaceEditUser {
-    token: string
+    token: string | null
     first_name: string
     last_name: string
 }
