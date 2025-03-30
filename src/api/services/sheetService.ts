@@ -10,7 +10,7 @@ export const createSheet = async (newSheet: sheetCreateInterface) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${newSheet.token}`,
             },
-            body: JSON.stringify(newSheet.data),
+            body: JSON.stringify(newSheet.editedSheet),
         });
         const data = await response.json();
         return data;

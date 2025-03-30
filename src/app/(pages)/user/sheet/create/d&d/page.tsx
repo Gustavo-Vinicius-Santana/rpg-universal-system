@@ -5,6 +5,13 @@ import InputText from "@/components/inputs/inputText";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import useAuthStore from "@/store/useAuthStore";
+import useSheets from "@/api/hooks/useSheets";
+
+import { sheetCreateInterface } from "@/interfaces/apiRequest/sheetsInterface";
+
+import { useRouter } from "next/navigation";
+
 type Inputs = {
     name: string
     level: string
@@ -13,10 +20,28 @@ type Inputs = {
 
 
 export default function Page() {
+    const tokenState = useAuthStore((state) => state.tokenState);
+    const { handleCreateSheet, isLoading } = useSheets();
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
         console.log(data)
+
+        const newSheet: sheetCreateInterface = { 
+            token: tokenState, 
+            editedSheet: {
+                model_name: 'Dungeons and Dragons 5e', //DADO MOCADO
+                model_id: 1, // DADO MOCADO
+                data: {
+                    person_name: data.name,
+                    person_level: Number(data.level),
+                    person_class: data.class
+                }
+            }
+
+        }
+        const response = await handleCreateSheet(newSheet);
+        console.log(response);
     }
 
     return(
@@ -46,6 +71,7 @@ export default function Page() {
                         <ButtonForm label="Salvar" />
                     </div>
                 </div>
+                {isLoading && <p>Loading...</p>}
             </form>
         </div>
     )

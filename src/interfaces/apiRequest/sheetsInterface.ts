@@ -1,10 +1,13 @@
 export interface sheetCreateInterface {
-    token: string,
-    modelName: string,
-    model_id: number,
-    data: {
-        person_name?: string,
-        person_level?: number
+    token: string | null,
+    editedSheet: {
+        model_name: string,
+        model_id: number,
+        data: {
+            person_name?: string,
+            person_level?: number,
+            person_class?: string
+        }
     }
 }
 
