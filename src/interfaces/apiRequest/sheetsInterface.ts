@@ -9,7 +9,7 @@ export interface sheetCreateInterface {
 }
 
 export interface getSheetByUserInterface {
-    token: string
+    token: string | null
 }
 
 export interface getSheetByIdInterface {

@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
 import Link from "next/link";
 import InputPassword from "@/components/inputs/inputPassword";
 import InputText from "@/components/inputs/inputText";
 import ButtonForm from "@/components/buttons/buttonForm";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, set } from "react-hook-form";
 
 import { LoginInterface } from "@/interfaces/apiRequest/authIterfaces";
 
 import useAuth from "@/api/hooks/useAuth";
 import { useRouter } from 'next/navigation';
+
+import useAuthStore from "@/store/useAuthStore";
 
 type Inputs = {
     email: string
@@ -21,6 +21,8 @@ type Inputs = {
 
 export default function Page() {
     const router = useRouter();
+
+    const setToken = useAuthStore((state) => state.setToken);
 
     const{ login, isLoading } = useAuth();
 
@@ -43,6 +45,7 @@ export default function Page() {
             console.log('erro no login:', dadosResponse.error);
         } else {
             console.log('response da api:', dadosResponse);
+            setToken(dadosResponse.token);
             router.push("/user")
         }
     }

@@ -8,28 +8,30 @@ import useSheets from "@/api/hooks/useSheets";
 
 import { getSheetByUserInterface } from "@/interfaces/apiRequest/sheetsInterface";
 
+import useAuthStore from "@/store/useAuthStore";
+
 export default function Page() {
+    const tokenState = useAuthStore((state) => state.tokenState);
     const { handleGetSheets, isLoading } = useSheets();
 
     const [ sheets, setSheets ] = useState<any>([]);
-
-    const token: string = "token value";
-
-    const dataToken: getSheetByUserInterface = {token: token};
     
     useEffect(() => {
+        if (!tokenState) return; // Se não houver token, não faz a chamada
+    
         const fetchSheets = async () => {
             try {
+                const dataToken: getSheetByUserInterface = { token: tokenState };
                 const response = await handleGetSheets(dataToken);
                 setSheets(response.sheets);
-                console.log('Retorno das fichas da API:', response)
+                console.log('Retorno das fichas da API:', response);
             } catch (error) {
                 console.error('Error fetching sheets:', error);
             }
         };
-    
+
         fetchSheets();
-    }, []);
+    }, [tokenState]);
     
     return (
         <div className="flex justify-center items-center flex-col w-full p-4">
